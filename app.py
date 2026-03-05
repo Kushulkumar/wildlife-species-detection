@@ -53,36 +53,36 @@ try:
     
     # Look for vision-capable models in order of preference
     preferred_models = [
-        'models/gemini-1.5-flash',
-        'models/gemini-1.5-pro',
-        'models/gemini-pro-vision',
         'gemini-1.5-flash',
-        'gemini-pro-vision'
+        'gemini-1.5-pro',
+        'models/gemini-1.5-flash',
+        'models/gemini-1.5-pro'
     ]
     
     available_models = [m.name for m in models]
     print("✅ Available models:", available_models)
     
     for preferred in preferred_models:
-        if preferred in available_models:
-            vision_model_name = preferred
+        # Check both with and without 'models/' prefix
+        full_name = f"models/{preferred}" if not preferred.startswith('models/') else preferred
+        short_name = preferred.replace('models/', '')
+        
+        if full_name in available_models or short_name in available_models:
+            vision_model_name = full_name if full_name in available_models else short_name
             break
     
-    if not vision_model_name and available_models:
-        # Take first model that might support vision
-        vision_model_name = available_models[0]
+    if not vision_model_name:
+        # Fallback to the most robust model if no matches
+        vision_model_name = 'gemini-1.5-flash'
     
-    if vision_model_name:
-        VISION_MODEL = vision_model_name
-        vision_model = genai.GenerativeModel(VISION_MODEL)
-        print(f"✅ Using model: {VISION_MODEL}")
-    else:
-        raise Exception("No suitable model found")
+    VISION_MODEL = vision_model_name
+    vision_model = genai.GenerativeModel(VISION_MODEL)
+    print(f"✅ Using model: {VISION_MODEL}")
         
 except Exception as e:
     logger.error(f"Model detection error: {e}")
-    # Fallback to common model
-    VISION_MODEL = 'gemini-pro-vision'
+    # Fallback to current best standard model
+    VISION_MODEL = 'gemini-1.5-flash'
     vision_model = genai.GenerativeModel(VISION_MODEL)
     print(f"⚠️ Using fallback model: {VISION_MODEL}")
 
