@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+*.db
+*.log
+uploads/
+results/
