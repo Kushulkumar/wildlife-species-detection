@@ -42,7 +42,7 @@ MAX_FILES_PER_REQUEST = 5
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 if not GEMINI_API_KEY:
     logger.error("GEMINI_API_KEY not found")
-    raise ValueError("Please set GEMINI_API_KEY in .env file")
+    raise ValueError("Please set GEMINI_API_KEY in .env file or Environment Variables")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
