@@ -48,13 +48,13 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Stable vision model
-VISION_MODEL = "gemini-1.5-flash"
+VISION_MODEL = "gemini-2.5-flash"
 
 vision_model = genai.GenerativeModel(VISION_MODEL)
 
 print("✅ Gemini Model:", VISION_MODEL)
 
-# =========================================================
+# =====================================s====================
 # KNOWLEDGE BASE
 # =========================================================
 class WildlifeKnowledgeBase:
